@@ -1,0 +1,105 @@
+MIT LICENSE !
+///// downloaded from https://www.mylnikov.org/archives/1170
+// archived to wayback machine Aug 4 2021
+
+
+
+Public Wi-Fi database. Geo-Location API. Public API of position by Wi-Fi (MAC, BSSID).
+
+Wi-Fi
+
+I would like to introduce public API implementation of Wi-Fi Geo-Location database. There are on the Internet a lot of sources of Wi-Fi positions but all of them have disadvantages of small data sets or inaccurate data.
+
+This database could be interesting for any applications that have to get accurate user location via Wi-Fi information.
+
+Basis compilation has following open databases:
+
+    openBmap (Open Database License (ODbL) v1.0)
+    OpenWifi.su (GNU free documentation license)
+
+At this moment database contains about 34M+ of records and it always getting new data.
+
+If you have any reliable source of Wi-Fi data, please share it with me via e-mail alex@mylnikov.org.
+
+API doesn't contains any hidden limitations or usage fees. All the data is provided "as is" and free without any money contribution.
+
+Specifications of Public Geo-Location API
+
+Request paths:
+
+http://api.mylnikov.org/geolocation/wifi?v=1.1&data=open&bssid={wifi-bssid}
+
+https://api.mylnikov.org/geolocation/wifi?v=1.1&data=open&bssid={wifi-bssid}
+
+{wifi-bssid} - BSSID of Wi-Fi AP (MAC address of network's AP card)
+
+BSSID variants input:
+
+    A0:F3:C1:3B:6F:90
+    A0F3C13B6F90
+    a0f3c13b6f90
+    A0-F3-C1-3B-6F-90
+    a0-f3-c1-3b-6f-90
+
+Example:
+
+https://api.mylnikov.org/geolocation/wifi?v=1.1&data=open&bssid=00:0C:42:1F:65:E9
+
+Response example:
+
+{"result":200, "data":{"range": 140, "lan": "60.05205150", "lon": "30.33848000", "signal": "-80"}}
+Field "result" contains 200 if Wi-Fi was found, otherwise it returns 404
+
+Description of successful response:
+
+    lat - latitude
+    lon - longitude
+    range - accuracy of result in meters
+
+Refined location (Beta) multiple Wi-Fis
+
+This section describes opportunity to fetch geo-location by multiple amount of Wi-Fi APs. It has the syntax: User sends the set of APs with them signal straight levels and server returns location coordinate. The request string should be wrapped with Base64
+
+Request paths:
+
+http://api.mylnikov.org/geolocation/wifi?v=1.1&data=open&search={base64-search-string}
+
+https://api.mylnikov.org/geolocation/wifi?v=1.1&data=open&search={base64-search-string}
+
+{base64-search-string} - Base64 encoded string with following properties:
+
+Example of input string:
+
+"28:28:5d:d6:39:8a,-76;90:94:e4:ac:12:26,-80"
+
+bssid,SS;bssid1,SS1
+
+SS - Signal Strength
+
+https://api.mylnikov.org/geolocation/wifi?v=1.1&data=open&search=Mjg6Mjg6NWQ6ZDY6Mzk6OGEsLTc2OzkwOjk0OmU0OmFjOjEyOjI2LC04MA==
+
+Demo
+
+The web-site https://find-wifi.mylnikov.org/ has a demo visualisation API results on map.
+2016-06-16_17-38-51
+
+Demo of API https://find-wifi.mylnikov.org/
+
+Licensing
+
+Statements of the API project:
+
+    Open data Geo-Location API  that licensed with  MIT License. All the request should contain key "data=open" key. The data from comes from the open source written above.
+    Any data from Geo-Location API is presented "as is".
+    Any usage of Geo-Location API are done by a final user without any stated guarantees and specific condition.
+    Usage liable of any data fetched from API fully lies on a final user activity and could be never wired with Geo-Location API service.
+
+API database contains about 34.5M+ records. Usage of API is fully free of charge.
+
+P.S.
+
+I you need full database of Wi-Fi in CSV format you can download here. The compilation has updated dump of all the sources of the API.
+
+I'll be happy to give you any help via e-mail alex@mylnikov.org.
+
+Here are some application that could let you view about accuracy of the API. Feel free to install!
